@@ -4,8 +4,10 @@ export const userSlice=createSlice(
     {
         name:"user",
         initialState:{
-                        name:"khurram",
-                        email:"khurram@gmail.com"
+            users: [
+                { id: 1, name: 'User1', email: 'user1@example.com' },
+                { id: 2, name: 'User2', email: 'user2@example.com' },
+              ],
                      },
         reducers:{
                         update:(state,action)=>{
@@ -13,9 +15,9 @@ export const userSlice=createSlice(
                         state.email=action.payload.email;}
                  },
                 
-                 remove: (state) => {
-                    state.name = '';
-                    state.email = '';
+                 remove: (state, action) => {
+                    // Remove the user with the specified ID
+                    state.users = state.users.filter((user) => user.id !== action.payload)
                   },
         }
 )

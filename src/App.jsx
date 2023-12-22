@@ -6,7 +6,7 @@ import { Button, Form } from 'react-bootstrap';
 import { remove, update } from './redux/UserSlice'; 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
+  const users = useSelector((state) => state.user.users);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,17 +23,17 @@ const App = () => {
     e.preventDefault(); 
     dispatch(update({ name, email })); 
   };
-  const handleRemove = () => {
+  const handleRemove = (userId) => {
     
-    dispatch(remove(user)); 
+    dispatch(remove(userId)); 
   };
 
   return (
     <>
       <section className=' vh-100  w-100  d-flex  flex-column  align-items-center justify-content-center bg-body-secondary  '>
         <form action="submit" onSubmit={handleSubmit} className=' d-flex flex-column align-items-center justify-content-around h-25'>
-          <Form.Control size="md" type="text" onChange={handleName} placeholder={user.name} />
-          <Form.Control size="md" type="email" onChange={handleEmail} placeholder={user.email} />
+          <Form.Control size="md" type="text" onChange={handleName} placeholder={users.name} />
+          <Form.Control size="md" type="email" onChange={handleEmail} placeholder={users.email} />
           <Button className=' w-100 bg-dark border-0' onClick={handleSubmit}>Update</Button>
           <Button className=' w-100 bg-dark border-0'  onClick={handleRemove}>Delete</Button>
         </form>

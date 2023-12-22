@@ -1,22 +1,24 @@
-import { useSelector } from "react-redux"
-
+import { useSelector,useDispatch } from "react-redux"
+import { remove } from "../redux/UserSlice";
 const Sample = () => {
-  const name = useSelector((state => state.user))
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.user.users);
+
+  const handleDelete = (userId) => {
+    dispatch(remove(userId));
+  };
   return (
     <div>
-      <p>
-        <span className=" fw-bold bg-black">
-          Name from store:
-        </span>
-        {name.name}
-      </p>     
-      <p>
-        <span className="fw-bold bg-black">
-          Name from store:
-        </span>
-        {name.email}
-     </p>
-
+      <h2>User List</h2>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>
+            <span>{user.name}</span>
+            <span>{user.email}</span>
+            <button onClick={() => handleDelete(user.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
     </div>
 
   )
